@@ -1,0 +1,3 @@
+[submodule "v3-subgraph"]
+	path = v3-subgraph
+	url = git@github.com:Uniswap/v3-subgraph.git
