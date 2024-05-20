@@ -13,10 +13,10 @@ dotenv.config();
 const app: Express = express();
 const PORT: string | number = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET!;
-const CHAIN_ID: number = Number(process.env.CHAIN_ID || ChainId.MAINNET);
+const CHAIN_ID = ChainId.BASE;
 const CHAIN_JSON_RPC_URL: string = process.env.CHAIN_JSON_RPC_URL!;
 const USER_HEADER = "user.wallet";
-const provider = new ethers.providers.JsonRpcProvider(CHAIN_JSON_RPC_URL, "any");
+const provider = new ethers.providers.JsonRpcProvider(CHAIN_JSON_RPC_URL, CHAIN_ID);
 const WALLET_PRIV_KEY = process.env.WALLET_PRIV_KEY!;
 const WALLET_ADDRESS = process.env.WALLET_ADDRESS!;
 
@@ -49,7 +49,7 @@ app.post("/login", (req: Request, res: Response) => {
 	res.json({ token });
 });
 
-app.post("/pool", auth, async (req: Request, res: Response) => {
+app.post("/pool", async (req: Request, res: Response) => {
 	let {
 		tokenInput: {
 			address: tokenInputAddress,
@@ -87,8 +87,7 @@ app.post("/pool", auth, async (req: Request, res: Response) => {
 		console.error(error);
 		return res.status(500).json({ error: "failed to find a pool" });
 	}
-
-})
+});
 
 app.post("/token-approval-max", auth, (req: Request, res: Response) => {
 	console.debug("token-approval-max", req.body);
@@ -206,7 +205,7 @@ app.post("/trade", auth, async (req: Request, res: Response) => {
 		console.error(error);
 		return res.status(500).json({ error: "failed to execute a trade" });
 	}
-})
+});
 
 app.post("/route", auth, async (req: Request, res: Response) => {
 	console.debug(req.body);

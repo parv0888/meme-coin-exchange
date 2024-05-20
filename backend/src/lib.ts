@@ -6,7 +6,7 @@ import { Wallet, ethers, utils } from 'ethers'
 import JSBI from 'jsbi';
 import { defaultAbiCoder } from 'ethers/lib/utils';
 
-const POOL_FACTORY_ADDRESS = "0x1F98431c8aD98523631AE4a59f267346ea31F984";
+const POOL_FACTORY_ADDRESS = "0x33128a8fC17869897dcE68Ed026d694621f6FDfD";
 const QUOTER_ADDRESS = "0x61fFE014bA17989E743c5F6cB21bF9697530B21e";
 const SWAP_ROUTER_ADDRESS = "0xE592427A0AEce92De3Edee1F18E0157C05861564";
 
@@ -149,9 +149,9 @@ export async function getPoolInfo(provider: ethers.providers.Provider, tokenIn: 
             poolContract.token0(),
             poolContract.token1(),
             poolContract.fee(),
-            poolContract.tickSpacing(),
+            poolContract.tickSpacing(), // todo: research
             poolContract.liquidity(),
-            poolContract.slot0(),
+            poolContract.slot0(), // todo: research
         ])
 
     return {
